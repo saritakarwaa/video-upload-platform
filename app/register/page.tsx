@@ -1,6 +1,7 @@
 "use client"
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import React, { useState } from 'react'
+
 
 function Register(){
     const [email,setEmail]=useState("")
@@ -26,12 +27,23 @@ function Register(){
             router.push("/login")
         }
         catch(error){
-            
+            setError("Network error");
         }
     }
     return(
         <div>
-
+            <form onSubmit={handleSubmit} className='space-y-4 bg-white p-6 rounded-lg shadow-md max-w-md mx-auto'>
+                {error && <p className='text-red-500 text-sm'>{error}</p>}
+                <div>
+                    <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+                    <input type="email" className='input input-bordered w-full mt-2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500' value={email} onChange={(e)=>setEmail(e.target.value)} required/>
+                </div>
+                <div>
+                    <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
+                    <input type="password" className='input input-bordered w-full mt-2 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500' value={password} onChange={(e)=>setPassword(e.target.value)} required />
+                </div>
+                <button type="submit" className='btn btn-primary w-full mt-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500'>Register</button>
+            </form>
         </div>
     )
 }

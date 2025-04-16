@@ -22,9 +22,11 @@ export default function Login() {
 
     if (result?.error) {
       showNotification(result.error, "error");
-    } else {
+    } else if(result?.ok) {
       showNotification("Login successful!", "success");
       router.push("/");
+    } else{
+      showNotification("Unknown error occurred","error")
     }
   };
 
